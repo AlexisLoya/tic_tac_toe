@@ -79,45 +79,56 @@ class UI(QMainWindow):
         
         #Check horizontal
         if (self.button_1.text() == self.button_4.text() == self.button_7.text() != ''):
-            self.set_winner(winner)
+            buttons = [self.button_1,self.button_4,self.button_7]
+            self.set_winner(winner, buttons)
         
         if (self.button_2.text() == self.button_5.text() == self.button_8.text() != ''):
-            self.set_winner(winner)
+            buttons = [self.button_2,self.button_5,self.button_8]
+            self.set_winner(winner, buttons)
         
         if (self.button_3.text() == self.button_6.text() == self.button_9.text() != ''):
-            self.set_winner(winner)
+            buttons = [self.button_3,self.button_6,self.button_9]
+            self.set_winner(winner, buttons)
         
         #Check vertical
         if (self.button_1.text() == self.button_2.text() == self.button_3.text() != ''):
-            self.set_winner(winner)
+            buttons = [self.button_1,self.button_2,self.button_3]
+            self.set_winner(winner, buttons)
         
         if (self.button_4.text() == self.button_5.text() == self.button_6.text() != ''):
-            self.set_winner(winner)
+            buttons = [self.button_4,self.button_5,self.button_6]
+            self.set_winner(winner, buttons)
         
         if (self.button_7.text() == self.button_8.text() == self.button_9.text() != ''):
-            self.set_winner(winner)
+            buttons = [self.button_7,self.button_8,self.button_9]
+            self.set_winner(winner, buttons)
         
         #Check diagonals
         if (self.button_1.text() == self.button_5.text() == self.button_9.text() != ''):
-            self.set_winner(winner)
-        
+            buttons = [self.button_1,self.button_5,self.button_9]
+            self.set_winner(winner, buttons)
+            
         if (self.button_7.text() == self.button_5.text() == self.button_3.text() != ''):
-            self.set_winner(winner)
+            buttons = [self.button_7,self.button_5,self.button_3]
+            self.set_winner(winner, buttons)
             
         if self.counter == 8:
             self.label_title.setText("The match ended in a draw")
     
     
-    def set_winner(self, winner=None, ):
+    def set_winner(self, winner=None,buttons=None ):
         self.reset(won=True)
         self.label_title.setText(f"{winner}'s won")
         if winner == 'X':
             self.winner_x += 1
             self.label_x.setText(f"x: {self.winner_x}")
-            
+            for b in buttons:
+                b.setStyleSheet('QPushButton {color:#f51625;}')
         else:
             self.winner_o += 1
             self.label_o.setText(f"o: {self.winner_o}")
+            for b in buttons:
+                b.setStyleSheet('QPushButton {color:#167af5;}')
 
 
 
@@ -137,6 +148,7 @@ class UI(QMainWindow):
         for b in button_list:
             if not won:
                 b.setText("") 
+                b.setStyleSheet('QPushButton {color:#5e5e5e;}')
                 b.setEnabled(True)
             else:
                 b.setEnabled(False)

@@ -32,6 +32,7 @@ class UI(QMainWindow):
         
         # UI
         self.button_start = self.findChild(QPushButton, 'button_start')
+        self.button_reset = self.findChild(QPushButton, 'resetResults')
         self.label_x = self.findChild(QLabel, 'label_x')
         self.label_o = self.findChild(QLabel, 'label_o')
         self.label_title = self.findChild(QLabel, 'label_title')
@@ -47,6 +48,7 @@ class UI(QMainWindow):
         self.button_8.clicked.connect(lambda: self.clicker(self.button_8))
         self.button_9.clicked.connect(lambda: self.clicker(self.button_9))
         self.button_start.clicked.connect(self.reset)
+        self.button_reset.clicked.connect(self.reset_results)
         
         # Show the app
         self.show()
@@ -121,12 +123,12 @@ class UI(QMainWindow):
         self.label_title.setText(f"{winner}'s won")
         if winner == 'X':
             self.winner_x += 1
-            self.label_x.setText(f"x: {self.winner_x}")
+            self.label_x.setText(f"X: {self.winner_x}")
             for b in buttons:
                 b.setStyleSheet('QPushButton {color:#f51625;}')
         else:
             self.winner_o += 1
-            self.label_o.setText(f"o: {self.winner_o}")
+            self.label_o.setText(f"O: {self.winner_o}")
             for b in buttons:
                 b.setStyleSheet('QPushButton {color:#167af5;}')
 
@@ -156,6 +158,12 @@ class UI(QMainWindow):
         if not won:
             self.label_title.setText("X's Turn")
         self.counter = 0
+
+    def reset_results(self):
+        self.winner_x = 0
+        self.winner_o = 0
+        self.label_x.setText("X:")
+        self.label_o.setText("O:")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

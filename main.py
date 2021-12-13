@@ -103,9 +103,12 @@ class UI(QMainWindow):
         
         if (self.button_7.text() == self.button_5.text() == self.button_3.text() != ''):
             self.set_winner(winner)
+            
+        if self.counter == 8:
+            self.label_title.setText("The match ended in a draw")
     
     
-    def set_winner(self, winner):
+    def set_winner(self, winner=None, ):
         self.reset(won=True)
         self.label_title.setText(f"{winner}'s won")
         if winner == 'X':
@@ -139,10 +142,8 @@ class UI(QMainWindow):
                 b.setEnabled(False)
                 
         if not won:
-            self.counter += 1
             self.label_title.setText("X's Turn")
-        else:
-            self.counter = 0
+        self.counter = 0
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
